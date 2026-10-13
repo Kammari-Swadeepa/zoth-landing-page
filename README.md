@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ZOTH Token Sale
 
-## Getting Started
+A responsive ZOTH token-sale landing page built with Next.js App Router, TypeScript, Tailwind CSS, shadcn-style UI components, Radix Dialog, lucide-react, Framer Motion, TanStack Query, and Sonner.
 
-First, run the development server:
+## Start the application
+
+### Development
+
+1. Install [Node.js 20.9 or later](https://nodejs.org/).
+2. From the project root, install the dependencies:
+
+```bash
+npm ci
+```
+
+3. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). The server reloads the page when you make code changes. Press `Ctrl+C` in the terminal to stop it.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Production preview
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Build the application, then start the production server:
 
-## Learn More
+```bash
+npm run build
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project notes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- The home page composes the announcement banner, navigation, hero and live sale card, partner strip, sale timeline/details, document links, and footer.
+- `GET /api/sale` serves the mock sale payload in `src/lib/sale.ts`. Both sale panels load that payload with TanStack Query and display loading and error states.
+- The sale countdown updates every second. Wallet and Sonar buttons open placeholder Radix dialogs; no Web3 connection is made.
+- The hero uses a short Framer Motion entrance animation and respects reduced-motion preferences.
+- The page is designed to stack on narrow screens and reflow for desktop.
 
-## Deploy on Vercel
+## Checks
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run lint
+npm run build
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+Deploy by importing this repository into Vercel and keeping the default Next.js build settings. This project does not yet have a live deployment URL.

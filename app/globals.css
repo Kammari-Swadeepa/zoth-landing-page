@@ -1,26 +1,505 @@
+
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #030303;
+  --foreground: #f5f3f2;
+  --orange: #ff4b12;
+  --orange-hover: #ff602e;
+  --muted: #8a817e;
+  --border: #3a1b13;
+  --panel: #0b0605;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--background);
 }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 1px solid var(--orange);
+  outline-offset: 3px;
+}
+
+::selection {
+  color: #fff;
+  background: var(--orange);
+}
+
+/* Reusable fine grid for the hero area */
+.zoth-grid {
+  background-color: #030303;
+  background-image:
+    linear-gradient(rgba(115, 48, 25, 0.17) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(115, 48, 25, 0.17) 1px, transparent 1px);
+  background-size: 29px 29px;
+}
+
+.zoth-hero-glow {
+  background:
+    radial-gradient(
+      ellipse at 76% 52%,
+      rgba(100, 31, 12, 0.27) 0%,
+      rgba(46, 15, 8, 0.15) 31%,
+      transparent 65%
+    ),
+    #030303;
+}
+
+.zoth-panel {
+  border: 1px solid var(--border);
+  background: rgba(10, 5, 4, 0.94);
+}
+
+.zoth-read-card {
+  background-image: linear-gradient(
+    145deg,
+    rgba(255, 75, 18, 0.055),
+    transparent 58%
+  );
+  box-shadow:
+    0 0 24px rgba(255, 65, 12, 0.13),
+    0 0 48px rgba(255, 65, 12, 0.06),
+    inset 0 0 22px rgba(255, 65, 12, 0.045);
+}
+
+.zoth-read-link {
+  text-decoration-line: underline;
+  text-decoration-color: #625c59;
+  text-underline-offset: 2px;
+}
+
+.zoth-partners {
+  position: relative;
+  border-block: 1px solid rgba(108, 44, 31, 0.65);
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(64, 23, 14, 0.2), transparent 70%),
+    #080403;
+}
+
+.zoth-partners__rail {
+  position: relative;
+  display: grid;
+  grid-template-columns: 136px minmax(0, 1fr);
+  width: min(84%, 1216px);
+  min-height: 62px;
+  margin-inline: auto;
+  border-inline: 1px solid rgba(108, 44, 31, 0.65);
+}
+
+.zoth-partners__label {
+  display: flex;
+  align-items: center;
+  padding-inline: 20px;
+  border-right: 1px solid rgba(108, 44, 31, 0.65);
+  color: #d0b6ac;
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.zoth-partners__list {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  align-items: center;
+}
+
+.zoth-partners__logo {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 5px;
+  color: #755043;
+  font-size: 9px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.zoth-partners__logo--borderless {
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.zoth-partners__logo--taisu {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.zoth-partners__logo--blockchain {
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.zoth-partners__logo--chainlink {
+  font-size: 8px;
+  font-weight: 600;
+}
+
+.zoth-partners__logo--coinbase {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.zoth-partners__logo--mindfulness {
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.zoth-partners__mark {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  color: #755043;
+}
+
+.zoth-partners__mark--borderless {
+  width: 13px;
+  height: 11px;
+  background: #755043;
+  clip-path: polygon(0 0, 72% 8%, 100% 50%, 72% 92%, 0 100%, 25% 50%);
+}
+
+.zoth-partners__mark--blockchain {
+  width: 13px;
+  height: 13px;
+  border: 2px solid #755043;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+
+.zoth-partners__mark--chainlink {
+  width: 12px;
+  height: 12px;
+  border: 2px solid #755043;
+  clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+}
+
+.zoth-partners__mark--coinbase {
+  width: 12px;
+  height: 12px;
+  border: 2px solid #755043;
+  border-radius: 50%;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.zoth-partners__nodes {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  pointer-events: none;
+}
+
+.zoth-partners__nodes::before,
+.zoth-partners__nodes::after {
+  position: absolute;
+  left: -3px;
+  width: 6px;
+  height: 6px;
+  background: #8b4038;
+  box-shadow: 0 0 8px rgba(255, 75, 18, 0.3);
+  content: "";
+}
+
+.zoth-partners__nodes::before {
+  top: -3px;
+}
+
+.zoth-partners__nodes::after {
+  bottom: -3px;
+}
+
+.zoth-partners__nodes--start {
+  left: 0;
+}
+
+.zoth-partners__nodes--split {
+  left: 136px;
+}
+
+.zoth-partners__nodes--end {
+  right: 0;
+}
+
+.zoth-nav-frame {
+  background-color: #1b100c;
+  box-shadow:
+    0 0 18px rgba(255, 65, 12, 0.06),
+    inset 0 0 14px rgba(255, 65, 12, 0.035);
+}
+
+.zoth-sale-panel {
+  border: 1px solid #532015;
+  background: rgba(9, 4, 3, 0.96);
+  box-shadow:
+    0 0 28px rgba(255, 65, 12, 0.14),
+    inset 0 0 22px rgba(255, 65, 12, 0.035);
+}
+
+.zoth-corner-frame,
+.zoth-ghost-frame {
+  background-image:
+    linear-gradient(var(--orange), var(--orange)),
+    linear-gradient(var(--orange), var(--orange)),
+    linear-gradient(var(--orange), var(--orange)),
+    linear-gradient(var(--orange), var(--orange)),
+    linear-gradient(var(--orange), var(--orange)),
+    linear-gradient(var(--orange), var(--orange)),
+    linear-gradient(var(--orange), var(--orange)),
+    linear-gradient(var(--orange), var(--orange));
+  background-repeat: no-repeat;
+  background-size:
+    5px 1px,
+    1px 5px,
+    5px 1px,
+    1px 5px,
+    5px 1px,
+    1px 5px,
+    5px 1px,
+    1px 5px;
+  background-position:
+    top left,
+    top left,
+    top right,
+    top right,
+    bottom left,
+    bottom left,
+    bottom right,
+    bottom right;
+}
+
+.zoth-corner-frame {
+  box-shadow: 0 0 9px rgba(255, 75, 18, 0.13);
+}
+
+.zoth-ghost-frame {
+  border: 1px solid var(--orange);
+  background-color: #080504;
+  transition: background-color 160ms ease;
+}
+
+.zoth-ghost-frame:hover {
+  background-color: #160a06;
+}
+
+.zoth-orange-button {
+  border: 1px solid var(--orange);
+  background-color: var(--orange);
+  color: #fff;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.zoth-orange-button:hover {
+  border-color: var(--orange-hover);
+  background-color: var(--orange-hover);
+}
+
+.zoth-outline-button {
+  border: 1px solid #8b351c;
+  background: #160a06;
+  color: #f5f3f2;
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+.zoth-outline-button:hover {
+  border-color: var(--orange);
+  background: #241008;
+}
+
+@media (max-width: 640px) {
+  .zoth-partners__rail {
+    grid-template-columns: minmax(0, 1fr);
+    width: calc(100% - 32px);
+  }
+
+  .zoth-partners__label {
+    min-height: 38px;
+    padding-inline: 14px;
+    border-right: 0;
+    border-bottom: 1px solid rgba(108, 44, 31, 0.65);
+  }
+
+  .zoth-partners__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .zoth-partners__logo {
+    min-height: 42px;
+  }
+
+  .zoth-partners__nodes--split {
+    display: none;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 640px) {
+  .zoth-partners__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Shared ZOTH wireframe scene: navbar + hero */
+.zoth-scene {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #030303;
+}
+
+.zoth-scene-glow {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 72% 48%,
+    rgba(112, 36, 13, 0.28) 0%,
+    rgba(58, 22, 10, 0.15) 34%,
+    transparent 70%
+  );
+}
+
+/* Perspective floor grid */
+.zoth-scene-floor {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  left: -30%;
+  right: -30%;
+  top: 20%;
+  bottom: -65%;
+  opacity: 0.72;
+
+  background-image:
+    linear-gradient(
+      rgba(126, 55, 29, 0.32) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(126, 55, 29, 0.32) 1px,
+      transparent 1px
+    );
+  background-size: 48px 48px;
+
+  transform: perspective(520px) rotateX(58deg) scale(1.35);
+  transform-origin: center bottom;
+
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 20%,
+    black 78%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 20%,
+    black 78%,
+    transparent 100%
+  );
+}
+
+/* Subtle grid across the upper wall */
+/* Perspective ceiling: mirror of the floor */
+.zoth-scene-ceiling {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  left: -30%;
+  right: -30%;
+  top: -65%;
+  bottom: 80%;
+  opacity: 0.55;
+
+  background-image:
+    linear-gradient(rgba(126, 55, 29, 0.32) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(126, 55, 29, 0.32) 1px, transparent 1px);
+  background-size: 48px 48px;
+
+  transform: perspective(520px) rotateX(-58deg) scale(1.35);
+  transform-origin: center top;
+
+  -webkit-mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    black 20%,
+    black 78%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    black 20%,
+    black 78%,
+    transparent 100%
+  );
+}
+
+/* Let the shared scene show through the navbar */
+.zoth-scene > header {
+  background: rgba(3, 3, 3, 0.30);
+}
+
+/* Hero should not paint an opaque layer over the shared scene */
+.zoth-scene > #home {
+  background: transparent;
 }
